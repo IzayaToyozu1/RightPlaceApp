@@ -1,0 +1,80 @@
+﻿<Window x:Class="RightPlaceForms.MainRegistration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RightPlaceForms"
+        mc:Ignorable="d"
+        Title="MainRegistration" Height="600" Width="450" WindowStyle="ToolWindow">
+    <Grid>
+        <TextBox x:Name="tbName" 
+                 Text="" 
+                 TextWrapping="Wrap" 
+                 Width="350"
+                 Height="25"
+                 Margin="75,57,25,502" 
+                 FontSize="15" />
+        <Button x:Name="btRegistration" 
+                Content="Войти" Margin="175,481,0,0" 
+                Width="100" Height="25" 
+                RenderTransformOrigin="0.53,0.601" 
+                Grid.ColumnSpan="2" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" Click="btRegistration_Click"/>
+        <Label Content="Name"
+               Margin="10,47,0,0" 
+               Width="68" Height="45" 
+               FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+               Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <TextBox x:Name="tbLogin" 
+            Text="" 
+            TextWrapping="Wrap" 
+            Width="350"
+            Height="25"
+            Margin="75,102,25,457" 
+            FontSize="15" />
+        <Label Content="Login" 
+               Margin="10,92,0,0" Width="68" Height="45" 
+               FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+               Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <TextBox x:Name="tbPassword" 
+            Text="" 
+            TextWrapping="Wrap" 
+            Width="350"
+            Height="25"
+            Margin="75,152,25,407" 
+            FontSize="15" />
+        <Label Content="Password" 
+               Margin="10,142,0,0" Width="68" Height="45" 
+               FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+               Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <TextBox x:Name="tbBirthData" 
+            Text="" 
+            TextWrapping="Wrap" 
+            Width="350"
+            Height="25"
+            Margin="75,202,25,357" 
+            FontSize="15" />
+        <Label Content="Birth data" Margin="10,192,0,0" 
+               Width="68" Height="45" FontSize="10" 
+               VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+               Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <Button x:Name="btClose" 
+            Content="Отмена" Margin="0,520,0,0" 
+            Width="100" Height="24" 
+            RenderTransformOrigin="0.53,0.601" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top" Click="btClose_Click"/>
+        <TextBox x:Name="tbEmail" 
+            Text="" 
+            TextWrapping="Wrap" 
+            Width="350"
+            Height="25"
+            Margin="75,257,25,302" 
+            FontSize="15" />
+        <Label Content="E-mail" Margin="10,247,0,0" 
+            Width="68" Height="45" FontSize="10" 
+            VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+            Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+    </Grid>
+</Window>

@@ -6,27 +6,23 @@ using System.Threading.Tasks;
 
 namespace RightPlaceBL.Model
 {
-    [Serializable]
     public class User
     {
         public int Id { get; set; }
+        public string Login { get; set; }
         public string Name { get; set; }
-        public int Age
-        {
-            get
-            {
-                return BirthDate.Hour;
-            }
-        }
-        public DateTime BirthDate { get; private set; }
-
+        public DateTime BirthDate { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
+        public List<Chat> Chats { get; set; } = new List<Chat>();
         public User() { }
-        public User(string name, DateTime birthDate, string password)
+
+        public User(string name, DateTime birthDate, string password, string email)
         {
             Name = name;
             BirthDate = birthDate;
             Password = password;
+            Email = email;
         }
     }
 }

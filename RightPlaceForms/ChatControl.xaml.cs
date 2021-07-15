@@ -30,7 +30,7 @@ namespace RightPlaceForms
             InitializeComponent();
         }
 
-        private async void btSentMessage_Click(object sender, RoutedEventArgs e)
+        private void BtSentMessage_Click(object sender, RoutedEventArgs e)
         {
             lbChat.Items.Add(User.Name + ": " + tbMessage.Text);
             Chat.SentMessage(tbMessage.Text);
@@ -53,8 +53,8 @@ namespace RightPlaceForms
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show(ex.Message + User.Name, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Chat.Disconnect();
+                    MessageBox.Show(ex.Message + User.Name, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    //Chat.Disconnect();
                 }
             }
         } 

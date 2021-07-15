@@ -22,13 +22,11 @@ namespace RightPlaceForms
     {
         Chat _chat;
         ClientObject _client;
-        ChatControl _chatControl;
         Command _com;
-        public CreateChat(Chat chat, ClientObject clientObject, ChatControl chatControl, Command command)
+        public CreateChat(Chat chat, ClientObject clientObject, Command command)
         {
             _chat = chat;
             _client = clientObject;
-            _chatControl = chatControl;
             _com = command;
             InitializeComponent();
         }
@@ -38,8 +36,6 @@ namespace RightPlaceForms
             _chat.Name = tbNameChat.Text;
             _client.Chat = _chat;
             _client.ServerCommand(_com);
-            _chatControl.Chat = _chat;
-            _chatControl.GetMessage();
             this.Close();
         }
     }
