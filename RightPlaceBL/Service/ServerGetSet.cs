@@ -10,9 +10,14 @@ namespace RightPlaceBL.Service
 {
     public static class ServerGetSet<T>
     {
+        private object locker;
+
         public static T GetData(NetworkStream stream)
         {
-            return JsonSerializer.Deserialize<T>(GetDataStream(stream));
+            lock (locker)
+            {
+                return JsonSerializer.Deserialize<T>(GetDataStream(stream));
+            }
         }
 
         public static void SentDataStrem(NetworkStream stream, T obj)

@@ -23,6 +23,7 @@ namespace RightPlaceForms
     {
         ClientObject _client;
         User _user;
+        List<Chat> _chats = new List<Chat>();
 
         public MainMenu(ClientObject client, User user)
         {
@@ -33,16 +34,20 @@ namespace RightPlaceForms
 
         private void btCreatChat_Click(object sender, RoutedEventArgs e)
         {
+            ChatWindow chatWindow = new ChatWindow();
             Chat chat = new Chat();
-            CreateChat createChat = new CreateChat(chat, _client, ControlChat, Command.createChat);
+            _chats.Add(chat);
+            CreateChat createChat = new CreateChat(chat, _client, chatWindow, Command.createChat);
             ControlChat.User = _user;
             createChat.Show();
         }
 
         private void btAddChat_Click(object sender, RoutedEventArgs e)
         {
+            ChatWindow chatWindow = new ChatWindow();
             Chat chat = new Chat();
-            CreateChat createChat = new CreateChat(chat, _client, ControlChat, Command.addChat);
+            _chats.Add(chat);
+            CreateChat createChat = new CreateChat(chat, _client, chatWindow, Command.addChat);
             ControlChat.User = _user;
             createChat.Show();
         }

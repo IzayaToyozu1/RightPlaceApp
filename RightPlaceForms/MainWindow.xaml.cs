@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using RightPlaceBL.Model;
 using RightPlaceBL.Service;
 
@@ -28,6 +17,8 @@ namespace RightPlaceForms
         {
             InitializeComponent();
             client = new ClientObject();
+            Thread getCommandThread = new Thread(new ThreadStart(client.CommandsServer));
+            getCommandThread.Start();
             try 
             {
                 client.Start();
@@ -35,32 +26,27 @@ namespace RightPlaceForms
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }    
+            }
+            client.UserNull += UserNull;
+        }
+
+        private void UserNull()
+        {
+            lbInfo.Content = "Логин или пароль неверный";
         }
 
         private void btLogin_Click(object sender, RoutedEventArgs e)
         {
-            user = new User();
-            user.Name = tbLogin.Text;
-            user.Password = tbPassword.Text;
-            client.User = user;
+            client.User.Login = tbLogin.Text;
+            client.User.Password = tbPassword.Text; 
 
             client.ServerCommand(Command.authentication);
-
-            if (LoginFail(ServerGetSet<Command>.GetData(client.Stream)))
-            {
-                MainMenu menu = new MainMenu(client, user);
-                menu.Show();
-                this.Close();
-            }
-
-            lbInfo.Content = "Неверный пароль или логин";
         }
-        private bool LoginFail(Command com) 
+
+        private void btRegistration_Click(object sender, RoutedEventArgs e)
         {
-            if (com == Command.okUser)
-                return true;
-            return false;
-        } 
+            MainRegistration registration = new MainRegistration(client);
+            registration.ShowDialog();
+        }
     }
 }
