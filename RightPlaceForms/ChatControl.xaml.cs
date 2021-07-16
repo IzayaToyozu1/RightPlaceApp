@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using RightPlaceBL.Model;
 
 namespace RightPlaceForms
@@ -22,41 +10,26 @@ namespace RightPlaceForms
     /// </summary>
     public partial class ChatControl : UserControl
     {
-        internal Chat Chat { get; set; }
-        internal ClientObject Clinet { get; set; }
-        internal User User { get; set; }
+        public ClientObject Client { get; set; }
         public ChatControl()
         {
             InitializeComponent();
+            Client.NewMessage += NewMessage;
         }
 
         private void BtSentMessage_Click(object sender, RoutedEventArgs e)
         {
-            lbChat.Items.Add(User.Name + ": " + tbMessage.Text);
-            Chat.SentMessage(tbMessage.Text);
+            Client.SentMessage(tbMessage.Text);
             tbMessage.Clear();
         }
-        internal void GetMessage()
+
+        private async void NewMessage(string message, Chat chat)
         {
-            Thread thredGetMessage = new Thread(new ThreadStart(ReceiveMessage));
-            thredGetMessage.Start();
+            using (StreamWriter writer = new StreamWriter("Messages_" + chat.Name + ".txt", false))
+            {
+                await writer.WriteLineAsync(message);
+            }
         }
 
-        private void ReceiveMessage()
-        {
-            while (true)
-            {
-                try
-                {
-                    string message = Chat.GetMessage();
-                    lbChat.Items.Add(message);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message + User.Name, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    //Chat.Disconnect();
-                }
-            }
-        } 
     }
 }

@@ -15,6 +15,7 @@ namespace RightPlaceBL.Model
         public string Password { get; set; }
         public string Email { get; set; }
         public List<Chat> Chats { get; set; } = new List<Chat>();
+
         public User() { }
 
         public User(string name, DateTime birthDate, string password, string email)

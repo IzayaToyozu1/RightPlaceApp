@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,34 +22,45 @@ namespace RightPlaceForms
     public partial class MainMenu : Window
     {
         ClientObject _client;
-        User _user;
-        List<Chat> _chats = new List<Chat>();
 
-        public MainMenu(ClientObject client, User user)
+        public MainMenu(ClientObject client)
         {
             _client = client;
-            _user = user;
+            if (_client.User.Chats != null)
+            {
+                foreach (var chat in _client.User.Chats)
+                {
+                    lvChatNames.Items.Add(chat.Name);
+                }
+            }
             InitializeComponent();
+        }
+
+        private void BuildChat()
+        {
+            _client.Chat = _client.User.Chats.FirstOrDefault(c => c.Name == (string)lvChatNames.SelectedItem);
+            ControlChat.lbChat.Items.Clear();
+            using(StreamReader reader = new StreamReader("Message_" + _client.Chat.Name + ".txt"))
+            {
+                ControlChat.lbChat.Items.Add(reader);
+            }
         }
 
         private void btCreatChat_Click(object sender, RoutedEventArgs e)
         {
-            ChatWindow chatWindow = new ChatWindow();
             Chat chat = new Chat();
-            _chats.Add(chat);
-            CreateChat createChat = new CreateChat(chat, _client, chatWindow, Command.createChat);
-            ControlChat.User = _user;
+            _client.User.Chats.Add(chat);
+            CreateChat createChat = new CreateChat(chat, _client, Command.createChat);
             createChat.Show();
         }
 
         private void btAddChat_Click(object sender, RoutedEventArgs e)
         {
-            ChatWindow chatWindow = new ChatWindow();
             Chat chat = new Chat();
-            _chats.Add(chat);
-            CreateChat createChat = new CreateChat(chat, _client, chatWindow, Command.addChat);
-            ControlChat.User = _user;
+            _client.User.Chats.Add(chat);
+            CreateChat createChat = new CreateChat(chat, _client, Command.addChat);
             createChat.Show();
         }
+
     }
 }

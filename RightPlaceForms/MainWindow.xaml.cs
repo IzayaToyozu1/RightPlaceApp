@@ -12,7 +12,6 @@ namespace RightPlaceForms
     public partial class MainWindow : Window
     {
         ClientObject client;
-        User user;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,6 +27,7 @@ namespace RightPlaceForms
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             client.UserNull += UserNull;
+            client.UserLoggedIn += UserLiggedIn;
         }
 
         private void UserNull()
@@ -35,10 +35,17 @@ namespace RightPlaceForms
             lbInfo.Content = "Логин или пароль неверный";
         }
 
+        private void UserLiggedIn()
+        {
+            MainMenu mainMenu = new MainMenu(client);
+            mainMenu.Show();
+            this.Close();
+        }
+
         private void btLogin_Click(object sender, RoutedEventArgs e)
         {
             client.User.Login = tbLogin.Text;
-            client.User.Password = tbPassword.Text; 
+            client.User.Password = tbPassword.Text;
 
             client.ServerCommand(Command.authentication);
         }

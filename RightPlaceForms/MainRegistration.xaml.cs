@@ -32,8 +32,7 @@ namespace RightPlaceForms
                 BirthDate =  DateTime.Parse(tbBirthData.Text),
                 Email = tbEmail.Text
             };
-            _client.User = user;
-            _client.ServerCommand(Command.registration);
+            _client.Registration(user);
             this.Close();
         }
 

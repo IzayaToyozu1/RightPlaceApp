@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <local:ChatControl x:Name="ControlChat" Margin="190,75,10,75" Width="600" Height="450" Grid.ColumnSpan="2"/>
         <Button x:Name="btCreatChat" Content="Создать чат" Margin="27,526,234,39" Width="100" Height="35" Click="btCreatChat_Click"/>
-        <ListView Margin="10,32,194,100">
+        <ListView x:Name="lvChatNames" Margin="10,32,194,100">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

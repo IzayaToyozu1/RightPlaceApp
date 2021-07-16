@@ -8,7 +8,7 @@ namespace RightPlaceBL.Model
 {
     public class ClientObject
     {
-        public delegate string GetMessage(string message, Chat chat);
+        public delegate void GetMessage(string message, Chat chat);
             
         public event Action UserNull;
         public event Action UserLoggedIn;
@@ -22,7 +22,8 @@ namespace RightPlaceBL.Model
         public NetworkStream Stream { get; private set; }
         public Chat Chat { get; set; }
         public User User { get; internal set; } = new User();
-        
+
+
         public ClientObject()
         {
             _client = new TcpClient();
@@ -52,6 +53,7 @@ namespace RightPlaceBL.Model
 
                     case Command.okUser:
                         User.Chats = ServerGetSet<List<Chat>>.GetData(Stream);
+                        UserLoggedIn?.Invoke();
                         break;
 
                     case Command.getMessageChat:
@@ -73,7 +75,7 @@ namespace RightPlaceBL.Model
             switch (command)
             {
                 case Command.authentication:
-                    ServerGetSet<User>.SentDataStrem(Stream, User);
+                    ServerGetSet<User>.SentDataStrem(Stream, User); 
                     break;
 
                 case Command.registration:
@@ -101,6 +103,12 @@ namespace RightPlaceBL.Model
                     _message = "";
                     break;
             }
+        }
+
+        public void Registration(User user)
+        {
+            User = user;
+            ServerCommand(Command.registration);
         }
 
         public void SentMessage(string message)
